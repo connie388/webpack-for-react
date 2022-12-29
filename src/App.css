@@ -1,0 +1,60 @@
+@import url("https://fonts.googleapis.com/css2?family=Karla:wght@200;400&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Karla", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+  max-width: 90%;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 1rem;
+}
+
+.cover-container {
+  height: 80vh;
+  overflow: hidden;
+  display: flex;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/* Must include the word important; otherwise won't work */
+.carousel-indicators button {
+  height: 10px !important;
+  width: 10px !important;
+  margin: 0 10px !important;
+  border-radius: 100%;
+  background-color: #1963ac !important;
+}
+
+/* refer to https://raybo.org/posts/2021-03-27-consistent-height-carousels-with-css-gradients-by-hacking-the-bootstrap-5-carousel/ */
+/* following css is required as sometimes the images aren't exactly the same height or proportions */
+#carousel-slide .carousel-item img {
+  object-fit: cover;
+  object-position: center;
+  height: 50vh;
+  overflow: hidden;
+}
+
+/* add following css to avoid color of the image and the text are too similar, so the text disappears. */
+#carousel-slide .carousel-item:before {
+  content: ""; /* otherwise the browser will assume this is an empty element and not display it at all */
+  background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.5));
+  display: block;
+  position: absolute;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+}
