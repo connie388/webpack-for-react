@@ -35,7 +35,9 @@ module.exports = {
           },
         ],
       },
-      // webpack 5, using type asset https://requestmetrics.com/web-performance/fast-inline-images-react-webpack
+      // https://requestmetrics.com/web-performance/fast-inline-images-react-webpack
+      // Webpack 5 has a new feature called Asset Modules which is meant to
+      // replace the url-loader, file-loader, and raw-loader’s used in Webpack 4 for this situation.
       {
         test: /\.(png|jpg)$/i,
         type: "asset",
