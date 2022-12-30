@@ -9,6 +9,7 @@ module.exports = {
   entry: "./src/index.js",
   output: {
     filename: "bundle.[hash].js",
+    clean: true,
   },
   devtool: "inline-source-map",
   module: {
@@ -34,31 +35,18 @@ module.exports = {
           },
         ],
       },
+      // webpack 5, using type asset https://requestmetrics.com/web-performance/fast-inline-images-react-webpack
       {
-        test: /\.(png|jpe?g|gif|jpg|jpeg)$/i,
-        use: [
-          {
-            loader: "file-loader",
-            options: {
-              name: "[name].[ext]",
-              outputPath: "/",
-              publicPath: "/webpack-for-react/",
-            },
+        test: /\.(png|jpg)$/i,
+        type: "asset",
+        parser: {
+          dataUrlCondition: {
+            maxSize: 10 * 1024, // Inline images under 10KB
           },
-        ],
-      },
-      {
-        test: /\.(png|jpg|gif|jpeg)$/i,
-        use: [
-          {
-            loader: "url-loader",
-            options: {
-              name: "[name].[ext]",
-              outputPath: "/",
-              publicPath: "/webpack-for-react/",
-            },
-          },
-        ],
+        },
+        generator: {
+          filename: "images/[name]-[hash][ext]",
+        },
       },
     ],
   },

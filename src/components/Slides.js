@@ -77,7 +77,7 @@ export default function Slides({ dataSlide }) {
               }
             >
               <img
-                src={require(`../assets/images/${item.img}`).default}
+                src={require(`../assets/images/${item.img}`)}
                 className="d-block w-100"
               />
               <div className="carousel-caption d-none d-md-block">
