@@ -42,7 +42,7 @@ module.exports = {
             options: {
               name: "[name].[ext]",
               outputPath: "/",
-              publicPath: "/",
+              publicPath: "/webpack-for-react/",
             },
           },
         ],
@@ -55,7 +55,7 @@ module.exports = {
             options: {
               name: "[name].[ext]",
               outputPath: "/",
-              publicPath: "/",
+              publicPath: "/webpack-for-react/",
             },
           },
         ],
