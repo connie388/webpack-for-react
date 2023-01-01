@@ -74,10 +74,10 @@ export default function Navbar() {
             )}
           </button>
 
-          {/* following  based on answer in stackoverflow */}
+          {/* following  based on answer in stackoverflow how to change css*/}
           {/* Bootstrap 5 - Animated hamburger starting off as X */}
           <button
-            className="navbar-toggler  collapsed"
+            class="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent"
@@ -85,10 +85,9 @@ export default function Navbar() {
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
-            <span className="icon-bar top-bar"></span>
-            <span className="icon-bar middle-bar"></span>
-            <span className="icon-bar bottom-bar"></span>
-            {/* </span> */}
+            <span></span>
+            <span></span>
+            <span></span>
           </button>
         </div>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
