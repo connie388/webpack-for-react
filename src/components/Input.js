@@ -1,15 +1,6 @@
 // https://reactjs.org/docs/hooks-reference.html
-// modified version based on "How to Create a Reusable React Form component" by Gerald Ezenagu
-import React, { useReducer, useEffect } from "react";
-
-const inputReducer = (state, action) => {
-  switch (action.type) {
-    case "CHANGE":
-      return { ...state, value: action.val };
-    default:
-      return state;
-  }
-};
+// other reference https://daveceddia.com/usereducer-hook-examples/
+import React from "react";
 
 const Input = ({
   containerClassName = "mb-3",
@@ -17,30 +8,15 @@ const Input = ({
   childrenClassName = "form-control",
   id,
   label,
-  onInput,
-  element,
+  changeHandler,
+  element, // input or textarea
   type, // text, number, email, password, checkbox
+  value,
   placeholder,
   rows = 3,
   children, // any children
   ...rest // catch the rest
 }) => {
-  const [inputState, dispatch] = useReducer(inputReducer, { value: "" });
-
-  // const { id, onInput } = props;
-  const { value } = inputState;
-
-  // following codes will cause infinite loop!
-  // useEffect(() => {
-  //   onInput(id, value);
-  // }, [id, onInput, value]);
-
-  const changeHandler = (event) => {
-    dispatch({ type: "CHANGE", val: event.target.value });
-    // update onInput handler when data changed
-    onInput(id, event.target.value);
-  };
-
   const elementObj =
     element === "input" ? (
       <input
@@ -49,7 +25,7 @@ const Input = ({
         type={type}
         placeholder={placeholder}
         onChange={changeHandler}
-        value={inputState.value}
+        value={value}
         {...rest}
       />
     ) : (
@@ -58,7 +34,7 @@ const Input = ({
         id={id}
         rows={rows}
         onChange={changeHandler}
-        value={inputState.value}
+        value={value}
         {...rest}
       />
     );

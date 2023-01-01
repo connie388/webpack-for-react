@@ -2,98 +2,131 @@ import React, { useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import logo from "/src/assets/icons/C.png";
 import { DataContext } from "./DataProvider";
+import lightSky from "../assets/icons/light.png";
+import darkSky from "../assets/icons/dark.png";
 
 // Navbar.js
 export default function Navbar() {
-  const { theme, toggleTheme } = useContext(DataContext);
+  const { theme, toggleTheme, authenticate, setAuthenticate } =
+    useContext(DataContext);
 
   useEffect(() => {
     document.body.className = theme;
   }, [theme]);
 
+  let list = <></>;
+  // only authenticated users are allowed to view Blogs, gallery - photos and videos
+  if (authenticate) {
+    list = (
+      <>
+        <div className="nav-item">
+          <Link to="/blogs" className="nav-link">
+            Blogs
+          </Link>
+        </div>
+        <div className="nav-item dropdown">
+          <div
+            className="nav-link dropdown-toggle btn btn-link"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            id="dropdownMenuButton1"
+          >
+            Gallery
+          </div>
+          <div className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <div>
+              <Link to="/photos" className="dropdown-item">
+                Photos
+              </Link>
+            </div>
+            <div>
+              <Link to="/videos" className="dropdown-item">
+                Videos
+              </Link>
+            </div>
+            {/* <div>
+              <hr className="dropdown-divider" />
+            </div> */}
+            <div>
+              <Link to="/others" className="dropdown-item">
+                Others
+              </Link>
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  }
   return (
     // refer to https://getbootstrap.com/docs/5.3/components/navbar/
     // https://blog.logrocket.com/using-bootstrap-with-react-tutorial-with-examples/
-    <nav className="navbar navbar-expand-lg  sticky-top  bg-warning nav-dark">
+    <nav className="navbar navbar-expand-lg  sticky-top">
       <div className="container-fluid">
         <Link to="/about-me" className="navbar-brand">
           <img src={logo} alt="logo" width="30" height="24" />
         </Link>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon">
-            {/* add following hamburger icon */}
-            <svg viewBox="0 0 24 24" className="w-6 h-6 fill-current">
-              <path
-                fillRule="evenodd"
-                d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"
-              ></path>
-            </svg>
-          </span>
-        </button>
+        <div className="d-flex">
+          <button id="toggleTheme" onClick={() => toggleTheme()}>
+            {theme === "dark-theme" ? (
+              <img src={darkSky} alt="Dark Mode" />
+            ) : (
+              <img src={lightSky} alt="Light Mode" />
+            )}
+          </button>
+
+          {/* following  based on answer in stackoverflow */}
+          {/* Bootstrap 5 - Animated hamburger starting off as X */}
+          <button
+            className="navbar-toggler  collapsed"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="icon-bar top-bar"></span>
+            <span className="icon-bar middle-bar"></span>
+            <span className="icon-bar bottom-bar"></span>
+            {/* </span> */}
+          </button>
+        </div>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           {/* define the spacing */}
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item">
-              <Link to="/about-me" className="nav-link">
+          <div className="navbar-nav me-auto mb-2 mb-lg-0">
+            <div className="nav-item">
+              <Link id="home" to="/about-me" className="nav-link">
                 Home
               </Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/blogs" className="nav-link">
-                Blogs
-              </Link>
-            </li>
-            <li className="nav-item dropdown">
-              <div
-                className="nav-link dropdown-toggle btn btn-link"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Gallery
-              </div>
-              <ul className="dropdown-menu">
-                <li>
-                  <Link to="/photos" className="dropdown-item">
-                    Photos
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/videos" className="dropdown-item">
-                    Videos
-                  </Link>
-                </li>
-                <li>
-                  <hr className="dropdown-divider" />
-                </li>
-                <li>
-                  <a className="dropdown-item" href="/others">
-                    Others
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li className="nav-item">
+            </div>
+
+            {/* following {list} will be displayed if authenticated */}
+            {list}
+            <div className="nav-item">
               <Link to="/contact" className="nav-link">
                 Contact
               </Link>
-            </li>
-          </ul>
+            </div>
+          </div>
 
-          <li className="nav-item">
-            <Link to="/auth" className="nav-link">
-              Login
-            </Link>
-          </li>
-          <div className="header-toggle-buttons">
-            <button onClick={() => toggleTheme()}>{theme}</button>
+          <div>
+            {/* if already login, display 'logout' button; otherwise, display 'login' button */}
+            {authenticate ? (
+              <Link
+                to="/about-me"
+                onClick={() => {
+                  setAuthenticate(false);
+                  document.getElementById("home").focus();
+                }}
+                className="nav-link"
+              >
+                Logout
+              </Link>
+            ) : (
+              <Link to="/auth" className="nav-link">
+                Login
+              </Link>
+            )}
           </div>
         </div>
       </div>

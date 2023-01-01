@@ -15,13 +15,22 @@ body {
   font-size: 20px;
 }
 
+.wrapper {
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* define dark-theme and light-theme color palletes variables */
 :root,
 .light-theme {
   --primary-color: rgb(82, 80, 144);
   --secondary-color: #536390;
   --font-color: #424242;
   --bg-color: #fff;
-  --heading-color: #292922;
+  --nav-color: white;
+  --nav-font-color: green;
 }
 
 [data-theme="dark"],
@@ -30,13 +39,41 @@ body {
   --secondary-color: #818cab;
   --font-color: #e1e1ff;
   --bg-color: #212529;
-  --heading-color: #63656d;
+  --nav-color: #282a35;
+  --nav-font-color: greenyellow;
 }
 body,
 form {
   background-color: var(--bg-color);
   color: var(--font-color);
 }
+
+nav,
+.nav-link,
+.nav-link:hover,
+.dropdown-menu,
+.dropdown-menu:hover,
+a.dropdown-item,
+a.dropdown-item:hover {
+  background-color: var(--nav-color);
+  color: var(--font-color);
+}
+.nav-link:focus,
+a.dropdown-item:focus,
+.dropdown-menu:focus {
+  background-color: var(--nav-color);
+  color: var(--nav-font-color);
+}
+
+img,
+#toggleTheme {
+  height: 30px;
+  background-color: var(--nav-color);
+  border-style: none;
+  text-decoration: none;
+  filter: var(--nav-color);
+}
+
 h1 {
   color: var(--secondary-color);
   font-size: 2vw;
@@ -63,13 +100,23 @@ select:-webkit-autofill:focus {
 }
 
 /* change font size based on devices' width */
-
-@media (max-width: 1200px) {
+@media (max-width: 992px) {
   body,
   .form-control,
   .nav-link,
+  .drop-down,
+  .dropdown-menu,
+  #dropdownMenuButton1,
   button {
     font-size: 15px !important;
+    display: block;
+    text-align: left;
+    padding: 2px; /* overwrite default .nav-link padding */
+    margin-left: 20px;
+  }
+
+  h1 {
+    font-size: 16px;
   }
 }
 
@@ -77,6 +124,9 @@ select:-webkit-autofill:focus {
   body,
   .form-control,
   .nav-link,
+  .drop-down,
+  .dropdown-menu,
+  #dropdownMenuButton1,
   button {
     font-size: 14px !important;
   }
@@ -101,13 +151,7 @@ select:-webkit-autofill:focus {
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
-.container {
-  max-width: 90%;
-  margin-right: auto;
-  margin-left: auto;
-  padding: 1rem;
-}
-
+/* cover the whole page  */
 .cover-container {
   height: 80vh;
   overflow: hidden;
@@ -117,6 +161,7 @@ select:-webkit-autofill:focus {
   background-repeat: no-repeat;
 }
 
+/* small size form for contact or login */
 .small-center-form {
   width: 450px;
   margin: auto;
@@ -128,11 +173,13 @@ select:-webkit-autofill:focus {
   transition: all 0.3s;
 }
 
+/* this is the button display signup or signin in login screen */
 .signup-button {
   text-decoration: none;
   font-weight: 400;
   color: #0d6efd;
   border-style: none;
+  background-color: var(--bg-color) !important;
 }
 
 /* Overwrite bootstrap default */
@@ -167,4 +214,48 @@ select:-webkit-autofill:focus {
   top: 0;
   width: 100vw;
   height: 100vh;
+}
+
+/* following is based on answer in stackoverflow 
+Bootstrap 5 - Animated hamburger starting off as X */
+.navbar-toggler span {
+  display: block;
+  background-color: #4f4f4f;
+  height: 3px;
+  width: 25px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  position: relative;
+  left: 0;
+  opacity: 1;
+  transition: all 0.35s ease-out;
+  transform-origin: center left;
+}
+
+.navbar-toggler span:nth-child(1) {
+  transform: translate(0%, 0%) rotate(0deg);
+}
+
+.navbar-toggler span:nth-child(2) {
+  opacity: 1;
+}
+
+.navbar-toggler span:nth-child(3) {
+  transform: translate(0%, 0%) rotate(0deg);
+}
+
+.navbar-toggler span:nth-child(1) {
+  margin-top: 0.3em;
+}
+
+.navbar-toggler:not(.collapsed) span:nth-child(1) {
+  transform: translate(15%, -33%) rotate(45deg);
+}
+
+.navbar-toggler:not(.collapsed) span:nth-child(2) {
+  opacity: 0;
+}
+
+.navbar-toggler:not(.collapsed) span:nth-child(3) {
+  transform: translate(15%, 33%) rotate(-45deg);
 }
