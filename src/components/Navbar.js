@@ -77,7 +77,7 @@ export default function Navbar() {
           {/* following  based on answer in stackoverflow how to change css*/}
           {/* Bootstrap 5 - Animated hamburger starting off as X */}
           <button
-            class="navbar-toggler"
+            class="navbar-toggler collapsed"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent"
